@@ -1,0 +1,57 @@
+<!--SOURCES n1 : https://www.the-art-of-web.com/javascript/maze-generator/#box1  -->
+<!--SOURCES n2 : https://integral-domain.org/lwilliams/Applets/algorithms/recursivedivision.php  -->
+<!--SOURCES n3 : https://stackoverflow.com/questions/41553775/maze-generation-recursive-division-how-it-works  -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Labyrinthe</title>
+        <link rel="stylesheet" type="text/css" href="./index.css">
+    </head>
+    <body onload="makeMaze(12, 8);">
+        <div class="header">
+            <div class="image-container">
+                <img src="https://secrecy.me/secrecy-logo/Secrecy_Logo_Long.png" alt="Secrecy">
+            </div>
+        </div>
+        <main>
+            <h1>Labyrinthe</h1>
+            <div id="maze_container"><!-- Maze is Here --></div>
+            <form id="mazeGenerator" onsubmit="return preventReload(this);">
+                <fieldset>
+                    <legend>Maze Generator</legend>
+                    <label for="field_height">No. columns</label>
+                    <input id="field_height" type="number" min="2" max="30" name="cols" value="12">
+                    <label for="field_width">No. rows</label>
+                    <input id="field_width" type="number" min="2" max="30" name="rows" value="8">
+                    <input type="submit" value="Generate maze »">
+                </fieldset>
+            </form>
+            <button onclick="makeMaze(5, 5);" name="Easy" >Easy maze</button>
+            <button onclick="makeMaze(15, 15);" name="Medium" >Medium maze</button>
+            <button onclick="makeMaze(25, 25);" name="Hard" >Hard maze</button>
+        </main>
+    </body>
+    <script src="./index.js"></script>
+    <script src="./mazeFunctions.js"></script>
+    <script>
+    
+        var Maze, MazeGame;
+
+        const makeMaze = (width, height, speech = false) => {
+            Maze = new MazeBuilder(width, height);
+            Maze.display("maze_container");
+            MazeGame = new Mazing("maze");
+            if(speech) {
+                MazeGame.enableSpeech();
+            }
+        }
+    
+        const preventReload = (form) => {
+            makeMaze(parseInt(form.cols.value), parseInt(form.rows.value))
+            return false
+        }
+
+    </script>
+</html>
